@@ -22,7 +22,7 @@ window.onload = function(){
 
 function intialize() {
 
-    // Create the game board
+    //game board
     for (let r = 0; r < height; r++) {
         for (let c = 0; c < width; c++) {
             // <span id="0-0" class="tile">P</span>
@@ -34,7 +34,7 @@ function intialize() {
         }
     }
 
-    // Create the key board
+    //key board
     let keyboard = [
         ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
         ["A", "S", "D", "F", "G", "H", "J", "K", "L", " "],
@@ -74,7 +74,7 @@ function intialize() {
     }
     
 
-    // Listen for Key Press
+    //key Press
     document.addEventListener("keyup", (e) => {
         processInput(e);
     })
@@ -138,7 +138,7 @@ function update() {
     //start processing guess
     let correct = 0;
 
-    let letterCount = {}; //keep track of letter frequency, ex) KENNY -> {K:1, E:1, N:2, Y: 1}
+    let letterCount = {}; //letter frequency
     for (let i = 0; i < word.length; i++) {
         let letter = word[i];
 
@@ -152,12 +152,11 @@ function update() {
 
     console.log(letterCount);
 
-    //first iteration, check all the correct ones first
+    //first iteration
     for (let c = 0; c < width; c++) {
         let currTile = document.getElementById(row.toString() + '-' + c.toString());
         let letter = currTile.innerText;
-
-        //Is it in the correct position?
+        
         if (word[c] == letter) {
             currTile.classList.add("correct");
 
@@ -180,9 +179,9 @@ function update() {
         let currTile = document.getElementById(row.toString() + '-' + c.toString());
         let letter = currTile.innerText;
 
-        // skip the letter if it has been marked correct
+        //skip the letter if it has been marked correct
         if (!currTile.classList.contains("correct")) {
-            //Is it in the word?         //make sure we don't double count
+            
             if (word.includes(letter) && letterCount[letter] > 0) {
                 currTile.classList.add("present");
                 
@@ -191,7 +190,7 @@ function update() {
                     keyTile.classList.add("present");
                 }
                 letterCount[letter] -= 1;
-            } // Not in the word or (was in word but letters all used up to avoid overcount)
+            } //not in the word
             else {
                 currTile.classList.add("absent");
                 let keyTile = document.getElementById("Key" + letter);
